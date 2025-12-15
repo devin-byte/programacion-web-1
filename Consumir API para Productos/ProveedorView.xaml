@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+xmlns:vm="clr-namespace:ProveedoresApp.ViewModels"
+x:Class="ProveedoresApp.Views.ProveedorView">
+
+
+<ContentPage.BindingContext>
+<vm:ProveedorViewModel />
+</ContentPage.BindingContext>
+
+
+<ScrollView>
+<VerticalStackLayout Padding="20" Spacing="10">
+
+
+<Label Text="Gestión de Proveedores"
+FontSize="22"
+HorizontalOptions="Center" />
+
+
+<Entry Placeholder="Nombre" Text="{Binding ProveedorActual.Nombre}" />
+<Entry Placeholder="Empresa" Text="{Binding ProveedorActual.Empresa}" />
+<Entry Placeholder="Teléfono" Text="{Binding ProveedorActual.Telefono}" />
+<Entry Placeholder="Email" Text="{Binding ProveedorActual.Email}" />
+<Entry Placeholder="Dirección" Text="{Binding ProveedorActual.Direccion}" />
+
+
+<Button Text="Guardar"
+Command="{Binding GuardarProveedorCommand}" />
+
+
+<CollectionView ItemsSource="{Binding Proveedores}"
+SelectionMode="Single"
+SelectedItem="{Binding ProveedorActual}">
+<CollectionView.ItemTemplate>
+<DataTemplate>
+<Frame Padding="10" Margin="5">
+<VerticalStackLayout>
+<Label Text="{Binding Nombre}" FontAttributes="Bold" />
+<Label Text="{Binding Empresa}" />
+<Button Text="Eliminar"
+Command="{Binding BindingContext.EliminarProveedorCommand, Source={RelativeSource AncestorType=ContentPage}}"
+CommandParameter="{Binding .}" />
+</VerticalStackLayout>
+</Frame>
+</DataTemplate>
+</CollectionView.ItemTemplate>
+</CollectionView>
+
+
+</VerticalStackLayout>
+</ScrollView>
+</ContentPage>
